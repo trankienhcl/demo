@@ -13,9 +13,9 @@ node{
   
   stage("Push docker image"){
     withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
-      sh "docker login -u anhdo98 -p ${dockerHubPwd}"
+      sh "sudo docker login -u anhdo98 -p ${dockerHubPwd}"
     }
-    sh 'docker push anhdo98/my-app:0802v1'
+    sh 'sudo docker push anhdo98/my-app:0802v1'
   }
   
   stage("Deploy docker image to Tomcat server"){
