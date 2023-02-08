@@ -1,0 +1,14 @@
+node{
+  stage("Scm checkout"){
+    git credentialsId: 'git_creds', url: 'https://github.com/anhdotdo/helloworld-1.git'
+  }
+  
+  stage("Maven build"){
+    sh 'mvn clean package'
+  }
+  
+  stage("Build docker image"){
+    sh 'sudo docker build -t anhdo98/my-app:0802v1 .'
+  }
+  
+}
