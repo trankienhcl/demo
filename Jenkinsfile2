@@ -19,6 +19,13 @@ node{
   }
   
   stage("Deploy docker image to Tomcat server"){
+    def dockerRm = 'docker rm $(docker ps -aq)'
+    sshagent(['dev-server']) {
+      sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.7.92 ${dockerRm}"
+    }
+  }
+  
+  stage("Deploy docker image to Tomcat server"){
     def dockerRun = 'docker run -p 8080:8080 -d --name my-app-2 anhdo98/my-app:0802v2'
     sshagent(['dev-server']) {
       sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.7.92 ${dockerRun}"
