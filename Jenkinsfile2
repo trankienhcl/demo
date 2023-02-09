@@ -8,14 +8,14 @@ node{
   }
   
   stage("Build docker image"){
-    sh 'docker build -t anhdo98/my-app:0802v2 .'
+    sh 'docker build -t anhdo98/my-app:0802v3 .'
   }
   
   stage("Push docker image"){
     withCredentials([string(credentialsId: 'docker-pwd', variable: 'dockerHubPwd')]) {
       sh "docker login -u anhdo98 -p ${dockerHubPwd}"
     }
-    sh 'docker push anhdo98/my-app:0802v2'
+    sh 'docker push anhdo98/my-app:0802v3'
   }
   
   stage("Remove"){
@@ -26,7 +26,7 @@ node{
   }
   
   stage("Deploy docker image to Tomcat server"){
-    def dockerRun = 'docker run -p 8080:8080 -d --name my-app-2 anhdo98/my-app:0802v2'
+    def dockerRun = 'docker run -p 8080:8080 -d --name my-app-2 anhdo98/my-app:0802v3'
     sshagent(['dev-server']) {
       sh "ssh -o StrictHostKeyChecking=no ec2-user@172.31.7.92 ${dockerRun}"
     }
