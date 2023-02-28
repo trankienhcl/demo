@@ -10,6 +10,11 @@ sudo apt-get update
 sudo apt-get install -y kubelet kubeadm kubectl
 sudo apt-mark hold kubelet kubeadm kubectl
 
+rm -rf /etc/containerd/config.toml
+sudo systemctl restart containerd
+sudo systemctl restart kubelet
+kubectl apply -f https://github.com/weaveworks/scope/releases/download/v1.13.2/k8s-scope.yaml 
+
 
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
