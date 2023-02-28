@@ -32,7 +32,8 @@ apt-get update
 apt-get install -y kubelet=${KUBE_VERSION}-00 kubeadm=${KUBE_VERSION}-00 kubectl=${KUBE_VERSION}-00 kubernetes-cni=0.8.7-00
 apt-mark hold kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
-
+#master-node
+kubeadm init --kubernetes-version=${KUBE_VERSION}
 #fix
 kubeadm reset
 echo 1 > /proc/sys/net/ipv4/ip_forward
