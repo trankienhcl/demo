@@ -34,6 +34,9 @@ apt-mark hold kubelet kubeadm kubectl
 systemctl enable kubelet && systemctl start kubelet
 #master-node
 kubeadm init --kubernetes-version=${KUBE_VERSION}
+cp /etc/kubernetes/admin.conf $HOME/
+chown  $(id -u) $HOME/admin.conf
+export KUBECONFIG=$HOME/admin.conf
 #fix
 kubeadm reset
 echo 1 > /proc/sys/net/ipv4/ip_forward
